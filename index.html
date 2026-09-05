@@ -75,6 +75,48 @@
             }
         }
 
+        // Send OTP Simulation Function
+        function sendOtp() {
+            const phoneInput = document.getElementById('reg-phone').value;
+            if(phoneInput.length < 10) {
+                alert('Please enter a valid 10-digit mobile number first!');
+                return;
+            }
+            // Generate a random 4-digit OTP
+            const randomOtp = Math.floor(1000 + Math.random() * 9000);
+            alert('OTP sent successfully to +91 ' + phoneInput + '\nYour OTP is: ' + randomOtp);
+        }
+
+        // Login Validation
+        function handleLogin() {
+            const phone = document.getElementById('login-phone').value;
+            const pass = document.getElementById('login-pass').value;
+            if(phone === '' || pass === '') {
+                alert('Please fill in both phone number and password!');
+                return;
+            }
+            showScreen('home-screen');
+        }
+
+        // Register Validation
+        function handleRegister() {
+            const phone = document.getElementById('reg-phone').value;
+            const otp = document.getElementById('reg-otp').value;
+            const pass = document.getElementById('reg-pass').value;
+            const cpass = document.getElementById('reg-cpass').value;
+
+            if(phone === '' || otp === '' || pass === '' || cpass === '') {
+                alert('Please fill in all required fields!');
+                return;
+            }
+            if(pass !== cpass) {
+                alert('Passwords do not match!');
+                return;
+            }
+            alert('Registration Successful!');
+            showScreen('home-screen');
+        }
+
         function openPaymentModal() {
             document.getElementById('payment-modal').classList.remove('hidden');
         }
@@ -112,13 +154,13 @@
             <div id="login-form" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Phone Number</label>
-                    <input type="text" placeholder="Enter your number" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
+                    <input id="login-phone" type="text" placeholder="Enter your number" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Password</label>
-                    <input type="password" placeholder="Enter password" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
+                    <input id="login-pass" type="password" placeholder="Enter password" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
                 </div>
-                <button onclick="showScreen('home-screen')" class="w-full bg-orange-500 text-white font-bold py-3 rounded-xl shadow-md shadow-orange-200 text-sm cursor-pointer mt-4">Login</button>
+                <button onclick="handleLogin()" class="w-full bg-orange-500 text-white font-bold py-3 rounded-xl shadow-md shadow-orange-200 text-sm cursor-pointer mt-4">Login</button>
             </div>
 
             <!-- REGISTER FORM -->
@@ -127,29 +169,29 @@
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Phone Number</label>
                     <div class="flex space-x-2">
                         <span class="bg-gray-200 text-gray-700 px-3 py-3 rounded-xl text-sm font-bold flex items-center">+91</span>
-                        <input type="text" placeholder="Enter your number" class="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
+                        <input id="reg-phone" type="text" placeholder="Enter your number" class="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">OTP Verification</label>
                     <div class="flex space-x-2">
-                        <input type="text" placeholder="Enter OTP" class="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
-                        <button class="bg-orange-100 text-orange-600 font-bold px-4 py-3 rounded-xl text-xs cursor-pointer border border-orange-200">Send</button>
+                        <input id="reg-otp" type="text" placeholder="Enter OTP" class="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
+                        <button onclick="sendOtp()" class="bg-orange-100 text-orange-600 font-bold px-4 py-3 rounded-xl text-xs cursor-pointer border border-orange-200">Send</button>
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Password</label>
-                    <input type="password" placeholder="Create password" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
+                    <input id="reg-pass" type="password" placeholder="Create password" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Again Password</label>
-                    <input type="password" placeholder="Confirm password" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
+                    <input id="reg-cpass" type="password" placeholder="Confirm password" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Refer Code</label>
                     <input type="text" placeholder="Enter refer code" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
                 </div>
-                <button onclick="showScreen('home-screen')" class="w-full bg-orange-500 text-white font-bold py-3 rounded-xl shadow-md shadow-orange-200 text-sm cursor-pointer mt-2">Register</button>
+                <button onclick="handleRegister()" class="w-full bg-orange-500 text-white font-bold py-3 rounded-xl shadow-md shadow-orange-200 text-sm cursor-pointer mt-2">Register</button>
             </div>
         </div>
 
