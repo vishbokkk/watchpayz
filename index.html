@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watchpayz</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -11,13 +12,16 @@
             document.getElementById('auth-screen').classList.add('hidden');
             document.getElementById('home-screen').classList.add('hidden');
             document.getElementById('deposit-screen').classList.add('hidden');
+            document.getElementById('withdraw-screen').classList.add('hidden');
+            document.getElementById('team-screen').classList.add('hidden');
+            document.getElementById('profile-screen').classList.add('hidden');
             
             document.getElementById(screenId).classList.remove('hidden');
 
-            if(screenId === 'home-screen' || screenId === 'deposit-screen') {
-                document.getElementById('bottom-nav').classList.remove('hidden');
-            } else {
+            if(screenId === 'auth-screen') {
                 document.getElementById('bottom-nav').classList.add('hidden');
+            } else {
+                document.getElementById('bottom-nav').classList.remove('hidden');
             }
         }
 
@@ -47,6 +51,9 @@
         function switchTab(tabName) {
             document.getElementById('home-screen').classList.add('hidden');
             document.getElementById('deposit-screen').classList.add('hidden');
+            document.getElementById('withdraw-screen').classList.add('hidden');
+            document.getElementById('team-screen').classList.add('hidden');
+            document.getElementById('profile-screen').classList.add('hidden');
             
             document.querySelectorAll('.nav-item').forEach(el => el.classList.replace('text-orange-500', 'text-gray-400'));
 
@@ -56,25 +63,52 @@
             } else if(tabName === 'deposit') {
                 document.getElementById('deposit-screen').classList.remove('hidden');
                 document.getElementById('nav-deposit').classList.replace('text-gray-400', 'text-orange-500');
+            } else if(tabName === 'withdraw') {
+                document.getElementById('withdraw-screen').classList.remove('hidden');
+                document.getElementById('nav-withdraw').classList.replace('text-gray-400', 'text-orange-500');
+            } else if(tabName === 'team') {
+                document.getElementById('team-screen').classList.remove('hidden');
+                document.getElementById('nav-team').classList.replace('text-gray-400', 'text-orange-500');
+            } else if(tabName === 'profile') {
+                document.getElementById('profile-screen').classList.remove('hidden');
+                document.getElementById('nav-profile').classList.replace('text-gray-400', 'text-orange-500');
             }
+        }
+
+        function openPaymentModal() {
+            document.getElementById('payment-modal').classList.remove('hidden');
+        }
+        function closePaymentModal() {
+            document.getElementById('payment-modal').classList.add('hidden');
+        }
+
+        function openMpinModal() {
+            document.getElementById('mpin-modal').classList.remove('hidden');
+        }
+        function closeMpinModal() {
+            document.getElementById('mpin-modal').classList.add('hidden');
         }
     </script>
 </head>
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
 
+    <!-- Mobile Screen Container -->
     <div class="w-full max-w-md bg-[#fdfbf7] min-h-screen shadow-2xl flex flex-col justify-between relative pb-20 overflow-hidden">
         
+        <!-- ================= AUTH SCREEN (LOGIN / REGISTER) ================= -->
         <div id="auth-screen" class="flex flex-col h-full p-6 justify-center">
             <div class="text-center mb-6">
                 <h1 class="text-3xl font-black text-gray-900 tracking-wider">Watch <span class="text-orange-500">payz</span></h1>
                 <p class="text-xs text-gray-400 mt-1">Welcome back, please login or register</p>
             </div>
 
+            <!-- Tabs Switcher -->
             <div class="flex border-b border-gray-200 mb-6">
                 <button id="login-tab-btn" onclick="switchAuthTab('login')" class="flex-1 pb-2 text-sm border-b-2 border-orange-500 text-orange-500 font-bold cursor-pointer">Login</button>
                 <button id="register-tab-btn" onclick="switchAuthTab('register')" class="flex-1 pb-2 text-sm text-gray-400 font-bold cursor-pointer">Register</button>
             </div>
 
+            <!-- LOGIN FORM -->
             <div id="login-form" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Phone Number</label>
@@ -87,6 +121,7 @@
                 <button onclick="showScreen('home-screen')" class="w-full bg-orange-500 text-white font-bold py-3 rounded-xl shadow-md shadow-orange-200 text-sm cursor-pointer mt-4">Login</button>
             </div>
 
+            <!-- REGISTER FORM -->
             <div id="register-form" class="space-y-3 hidden">
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Phone Number</label>
@@ -107,17 +142,18 @@
                     <input type="password" placeholder="Create password" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-600 mb-1">Confirm Password</label>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">Again Password</label>
                     <input type="password" placeholder="Confirm password" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-600 mb-1">Referral Code (Optional)</label>
-                    <input type="text" placeholder="Enter referral code" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">Refer Code</label>
+                    <input type="text" placeholder="Enter refer code" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500">
                 </div>
                 <button onclick="showScreen('home-screen')" class="w-full bg-orange-500 text-white font-bold py-3 rounded-xl shadow-md shadow-orange-200 text-sm cursor-pointer mt-2">Register</button>
             </div>
         </div>
 
+        <!-- ================= 1. HOME SCREEN ================= -->
         <div id="home-screen" class="hidden flex flex-col h-full">
             <div class="px-5 py-4 flex justify-between items-center bg-white shadow-sm">
                 <h1 class="text-xl font-black text-gray-900 tracking-wider">Watch <span class="text-orange-500">payz</span></h1>
@@ -199,6 +235,7 @@
             </div>
         </div>
 
+        <!-- ================= 2. DEPOSIT SCREEN ================= -->
         <div id="deposit-screen" class="hidden flex flex-col h-full">
             <div class="px-5 py-3 bg-white shadow-sm flex items-center space-x-6">
                 <span class="text-orange-500 font-bold border-b-2 border-orange-500 pb-1 text-sm">INR</span>
@@ -245,7 +282,7 @@
                                 <span>Quota <strong class="text-gray-700">498.20</strong></span>
                             </div>
                         </div>
-                        <button class="bg-gray-900 text-white px-5 py-2 rounded-xl text-xs font-bold cursor-pointer">Buy</button>
+                        <button onclick="openPaymentModal()" class="bg-gray-900 text-white px-5 py-2 rounded-xl text-xs font-bold cursor-pointer">Buy</button>
                     </div>
 
                     <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center">
@@ -256,17 +293,160 @@
                                 <span>Quota <strong class="text-gray-700">689.00</strong></span>
                             </div>
                         </div>
-                        <button class="bg-gray-900 text-white px-5 py-2 rounded-xl text-xs font-bold cursor-pointer">Buy</button>
+                        <button onclick="openPaymentModal()" class="bg-gray-900 text-white px-5 py-2 rounded-xl text-xs font-bold cursor-pointer">Buy</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="absolute right-4 bottom-20 bg-orange-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg cursor-pointer">
+        <!-- ================= 3. WITHDRAW SCREEN ================= -->
+        <div id="withdraw-screen" class="hidden flex flex-col h-full">
+            <div class="px-5 py-4 bg-white shadow-sm flex items-center space-x-4">
+                <i class="fa-solid fa-chevron-left text-gray-600 cursor-pointer" onclick="switchTab('home')"></i>
+                <h2 class="text-base font-bold text-gray-800">Bank Account</h2>
+            </div>
+            <div class="p-4 flex-1 flex flex-col justify-center items-center text-center">
+                <div class="bg-white w-full p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center space-y-4">
+                    <p class="text-gray-400 text-sm">No Bank Accounts</p>
+                    <button onclick="openMpinModal()" class="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center text-lg shadow-lg cursor-pointer">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= 4. TEAM SCREEN ================= -->
+        <div id="team-screen" class="hidden flex flex-col h-full">
+            <div class="px-5 py-4 bg-white shadow-sm">
+                <h2 class="text-base font-bold text-gray-800">Team</h2>
+            </div>
+            <div class="p-4 space-y-4 overflow-y-auto flex-1">
+                <div class="bg-gradient-to-r from-orange-400 to-amber-500 rounded-2xl p-5 text-white shadow-md">
+                    <p class="text-xs text-orange-100 font-medium">Your Earning</p>
+                    <h3 class="text-2xl font-extrabold mt-1">₹0.00</h3>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
+                        <h4 class="text-lg font-bold text-gray-800">₹0.00</h4>
+                        <span class="text-[11px] text-gray-400">Today Team Recharge</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
+                        <h4 class="text-lg font-bold text-gray-800">0</h4>
+                        <span class="text-[11px] text-gray-400">Today Team Members</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 space-y-2">
+                    <p class="text-xs font-bold text-gray-700">Invite Code</p>
+                    <div class="bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs text-gray-500 truncate">
+                        https://show.watchpayz.live/sign-up?inviteCode=...
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center text-gray-400 text-xs">
+                    No team members yet
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= 5. PROFILE (ME) SCREEN ================= -->
+        <div id="profile-screen" class="hidden flex flex-col h-full">
+            <div class="p-4 space-y-4 overflow-y-auto flex-1">
+                <div class="bg-gradient-to-r from-orange-400 to-amber-500 rounded-2xl p-5 text-white shadow-md space-y-3">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full font-semibold">QUOTA</span>
+                            <h3 class="text-2xl font-extrabold mt-1">10 <span class="text-sm font-normal">INR</span></h3>
+                            <p class="text-[11px] text-orange-100 mt-1">Reward rate 8%</p>
+                        </div>
+                        <button class="bg-white text-orange-600 font-bold px-4 py-2 rounded-xl text-xs shadow-sm">Top Up</button>
+                    </div>
+                    <div class="border-t border-white/20 pt-2 flex justify-between text-xs font-mono">
+                        <span>8JV2OOSYN3</span>
+                        <i class="fa-regular fa-copy cursor-pointer"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 divide-y divide-gray-50 text-xs">
+                    <div onclick="showScreen('auth-screen')" class="p-4 flex justify-between items-center cursor-pointer hover:bg-gray-50">
+                        <span class="font-semibold text-gray-700"><i class="fa-solid fa-user-pen text-orange-500 mr-2"></i> Edit Profile</span>
+                        <i class="fa-solid fa-chevron-right text-gray-300"></i>
+                    </div>
+                    <div class="p-4 flex justify-between items-center cursor-pointer hover:bg-gray-50">
+                        <span class="font-semibold text-gray-700"><i class="fa-solid fa-circle-info text-blue-500 mr-2"></i> About Us</span>
+                        <i class="fa-solid fa-chevron-right text-gray-300"></i>
+                    </div>
+                    <div class="p-4 flex justify-between items-center cursor-pointer hover:bg-gray-50">
+                        <span class="font-semibold text-gray-700"><i class="fa-brands fa-telegram text-sky-500 mr-2"></i> Bind Telegram</span>
+                        <i class="fa-solid fa-chevron-right text-gray-300"></i>
+                    </div>
+                    <div class="p-4 flex justify-between items-center cursor-pointer hover:bg-gray-50">
+                        <span class="font-semibold text-gray-700"><i class="fa-solid fa-shield text-emerald-500 mr-2"></i> Privacy Policy</span>
+                        <i class="fa-solid fa-chevron-right text-gray-300"></i>
+                    </div>
+                    <div onclick="showScreen('auth-screen')" class="p-4 flex justify-between items-center cursor-pointer hover:bg-gray-50 text-red-500">
+                        <span class="font-semibold"><i class="fa-solid fa-right-from-bracket mr-2"></i> Log Out</span>
+                        <i class="fa-solid fa-chevron-right text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAYMENT GATEWAY POPUP ================= -->
+        <div id="payment-modal" class="hidden absolute inset-0 bg-black/50 z-50 flex items-end">
+            <div class="bg-white w-full rounded-t-3xl p-6 space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+                    <h3 class="font-bold text-gray-800 text-sm">Choose how to pay</h3>
+                    <i class="fa-solid fa-xmark text-gray-400 cursor-pointer" onclick="closePaymentModal()"></i>
+                </div>
+                <div class="space-y-2 text-xs">
+                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded-xl border border-gray-200">
+                        <span>YOU PAY: <strong>₹470.00</strong></span>
+                        <span>YOU GET: <strong class="text-orange-500">498.20</strong></span>
+                    </div>
+                    <label class="flex items-center justify-between p-3 border border-orange-500 bg-orange-50/50 rounded-xl cursor-pointer">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-bolt text-orange-500"></i>
+                            <div>
+                                <p class="font-bold text-gray-800">Express Payment</p>
+                                <span class="text-[10px] text-gray-400">Instant credit - 24x7 available</span>
+                            </div>
+                        </div>
+                        <input type="radio" checked name="pay" class="accent-orange-500">
+                    </label>
+                </div>
+                <div class="flex space-x-3 pt-2">
+                    <button onclick="closePaymentModal()" class="flex-1 bg-gray-100 text-gray-600 font-bold py-3 rounded-xl text-xs">Cancel</button>
+                    <button onclick="closePaymentModal(); alert('Payment simulation successful!')" class="flex-1 bg-orange-500 text-white font-bold py-3 rounded-xl text-xs shadow-md shadow-orange-200">Pay now $\rightarrow$</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MPIN SECURITY POPUP ================= -->
+        <div id="mpin-modal" class="hidden absolute inset-0 bg-black/50 z-50 flex items-end">
+            <div class="bg-white w-full rounded-t-3xl p-6 space-y-4 text-center">
+                <h3 class="font-bold text-gray-800 text-sm">Enter MPIN</h3>
+                <p class="text-[11px] text-gray-400">Enter your 6-digit security PIN to continue</p>
+                <div class="flex justify-center space-x-2 my-4">
+                    <input type="password" maxlength="1" class="w-10 h-10 border border-gray-300 rounded-lg text-center text-lg font-bold">
+                    <input type="password" maxlength="1" class="w-10 h-10 border border-gray-300 rounded-lg text-center text-lg font-bold">
+                    <input type="password" maxlength="1" class="w-10 h-10 border border-gray-300 rounded-lg text-center text-lg font-bold">
+                    <input type="password" maxlength="1" class="w-10 h-10 border border-gray-300 rounded-lg text-center text-lg font-bold">
+                    <input type="password" maxlength="1" class="w-10 h-10 border border-gray-300 rounded-lg text-center text-lg font-bold">
+                    <input type="password" maxlength="1" class="w-10 h-10 border border-gray-300 rounded-lg text-center text-lg font-bold">
+                </div>
+                <button onclick="closeMpinModal(); alert('Bank Account Verified!')" class="w-full bg-orange-500 text-white font-bold py-3 rounded-xl text-xs shadow-md shadow-orange-200">Verify</button>
+            </div>
+        </div>
+
+        <!-- Floating Chat Icon -->
+        <div class="absolute right-4 bottom-20 bg-orange-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg cursor-pointer z-20">
             <i class="fa-solid fa-headset text-lg"></i>
         </div>
 
-        <div id="bottom-nav" class="hidden absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 py-2 px-6 flex justify-between items-center z-10">
+        <!-- Bottom Navigation Bar -->
+        <div id="bottom-nav" class="hidden absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 py-2 px-6 flex justify-between items-center z-30">
             <div id="nav-home" onclick="switchTab('home')" class="nav-item flex flex-col items-center text-orange-500 cursor-pointer">
                 <i class="fa-solid fa-house text-lg"></i>
                 <span class="text-[10px] font-medium mt-1">Home</span>
@@ -275,15 +455,15 @@
                 <i class="fa-solid fa-right-left text-lg"></i>
                 <span class="text-[10px] font-medium mt-1">Deposit</span>
             </div>
-            <div class="nav-item flex flex-col items-center text-gray-400 cursor-pointer">
+            <div id="nav-withdraw" onclick="switchTab('withdraw')" class="nav-item flex flex-col items-center text-gray-400 hover:text-orange-500 cursor-pointer">
                 <i class="fa-solid fa-circle-plus text-lg"></i>
                 <span class="text-[10px] font-medium mt-1">Withdraw</span>
             </div>
-            <div class="nav-item flex flex-col items-center text-gray-400 cursor-pointer">
+            <div id="nav-team" onclick="switchTab('team')" class="nav-item flex flex-col items-center text-gray-400 hover:text-orange-500 cursor-pointer">
                 <i class="fa-solid fa-users text-lg"></i>
                 <span class="text-[10px] font-medium mt-1">Team</span>
             </div>
-            <div class="nav-item flex flex-col items-center text-gray-400 cursor-pointer">
+            <div id="nav-profile" onclick="switchTab('profile')" class="nav-item flex flex-col items-center text-gray-400 hover:text-orange-500 cursor-pointer">
                 <i class="fa-solid fa-user text-lg"></i>
                 <span class="text-[10px] font-medium mt-1">Me</span>
             </div>
