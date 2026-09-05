@@ -4,128 +4,207 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watchpayz</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        function switchTab(tabName) {
+            document.getElementById('home-screen').classList.add('hidden');
+            document.getElementById('deposit-screen').classList.add('hidden');
+            
+            // Reset nav colors
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.replace('text-orange-500', 'text-gray-400'));
+
+            if(tabName === 'home') {
+                document.getElementById('home-screen').classList.remove('hidden');
+                document.getElementById('nav-home').classList.replace('text-gray-400', 'text-orange-500');
+            } else if(tabName === 'deposit') {
+                document.getElementById('deposit-screen').classList.remove('hidden');
+                document.getElementById('nav-deposit').classList.replace('text-gray-400', 'text-orange-500');
+            }
+        }
+    </script>
 </head>
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
 
-    <!-- Mobile Screen Container -->
-    <div class="w-full max-w-md bg-[#fdfbf7] min-h-screen shadow-2xl flex flex-col justify-between relative pb-20">
+    <div class="w-full max-w-md bg-[#fdfbf7] min-h-screen shadow-2xl flex flex-col justify-between relative pb-20 overflow-hidden">
         
-        <!-- Header -->
-        <div class="px-5 py-4 flex justify-between items-center bg-white shadow-sm">
-            <h1 class="text-xl font-black text-gray-900 tracking-wider">Watch <span class="text-orange-500">payz</span></h1>
-            <span class="text-xs text-gray-400">show.watchpayz.live</span>
+        <div id="home-screen" class="flex flex-col h-full">
+            <div class="px-5 py-4 flex justify-between items-center bg-white shadow-sm">
+                <h1 class="text-xl font-black text-gray-900 tracking-wider">Watch <span class="text-orange-500">payz</span></h1>
+                <span class="text-xs text-gray-400">show.watchpayz.live</span>
+            </div>
+
+            <div class="p-4 space-y-4 overflow-y-auto flex-1">
+                <div class="bg-gradient-to-r from-orange-400 to-amber-500 rounded-2xl p-4 text-white shadow-md relative overflow-hidden flex justify-between items-center">
+                    <div>
+                        <div class="flex items-center space-x-1 text-xs font-semibold bg-white/20 w-fit px-2 py-0.5 rounded-full mb-1">
+                            <i class="fa-solid fa-gift text-yellow-200"></i>
+                            <span>INVITE & EARN</span>
+                        </div>
+                        <h2 class="text-lg font-bold">INVITE YOUR FRIENDS</h2>
+                        <p class="text-[11px] text-orange-100 mt-0.5">Share your unique link & win rewards.</p>
+                    </div>
+                    <div class="bg-white/10 px-3 py-2 rounded-xl text-center border border-white/20">
+                        <span class="block text-xs font-semibold">START</span>
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex justify-between items-center">
+                    <div>
+                        <p class="text-xs text-gray-400 font-medium uppercase tracking-wider">Wallet Balance</p>
+                        <h3 class="text-3xl font-extrabold text-gray-800 mt-1">₹10<span class="text-gray-400 text-lg">.00</span></h3>
+                    </div>
+                    <button onclick="switchTab('deposit')" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-2.5 rounded-full shadow-md shadow-orange-200 text-sm flex items-center space-x-1 cursor-pointer">
+                        <i class="fa-solid fa-plus text-xs"></i>
+                        <span>Top Up</span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100">
+                        <span class="text-[11px] text-gray-400 font-medium">USDT RATIO</span>
+                        <h4 class="text-xl font-bold text-gray-800 mt-1">110.00 ₹</h4>
+                        <span class="text-[10px] text-gray-400">per 1 USDT</span>
+                    </div>
+                    <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100">
+                        <span class="text-[11px] text-gray-400 font-medium">INR RATIO</span>
+                        <h4 class="text-xl font-bold text-orange-500 mt-1">9.00%</h4>
+                        <span class="text-[10px] text-emerald-500 font-medium">bonus active</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 divide-y divide-gray-50">
+                    <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-9 h-9 rounded-full bg-orange-100 text-orange-500 flex items-center justify-center font-bold">₹</div>
+                            <div>
+                                <p class="text-xs text-gray-400 font-medium">REFERRAL BALANCE</p>
+                                <h5 class="text-base font-bold text-gray-800">₹0.00</h5>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-300"></i>
+                    </div>
+                    <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-500 flex items-center justify-center font-bold">i</div>
+                            <div>
+                                <p class="text-xs text-gray-400 font-medium">TODAY RECEIVE</p>
+                                <h5 class="text-base font-bold text-gray-800">₹0.00</h5>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-300"></i>
+                    </div>
+                    <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-500 flex items-center justify-center font-bold">●</div>
+                            <div>
+                                <p class="text-xs text-gray-400 font-medium">TEAM COMMISSION</p>
+                                <h5 class="text-base font-bold text-gray-800">₹0.00</h5>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Main Scrollable Content -->
-        <div class="p-4 space-y-4 overflow-y-auto">
-            
-            <!-- Top Banner Card -->
-            <div class="bg-gradient-to-r from-orange-400 to-amber-500 rounded-2xl p-4 text-white shadow-md relative overflow-hidden flex justify-between items-center">
-                <div>
-                    <div class="flex items-center space-x-1 text-xs font-semibold bg-white/20 w-fit px-2 py-0.5 rounded-full mb-1">
-                        <i class="fa-solid fa-gift text-yellow-200"></i>
-                        <span>INVITE & EARN</span>
+        <div id="deposit-screen" class="hidden flex flex-col h-full">
+            <div class="px-5 py-3 bg-white shadow-sm flex items-center space-x-6">
+                <span class="text-orange-500 font-bold border-b-2 border-orange-500 pb-1 text-sm">INR</span>
+                <span class="text-gray-400 font-bold text-sm">USDT</span>
+            </div>
+
+            <div class="p-4 space-y-4 overflow-y-auto flex-1">
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-center space-x-2 text-amber-800 text-xs font-medium">
+                    <i class="fa-solid fa-circle-exclamation text-orange-500"></i>
+                    <span>Complete task to earn Commission Bonus</span>
+                </div>
+
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 space-y-3">
+                    <div class="flex justify-between items-center text-xs font-bold text-gray-800">
+                        <span>How to Buy Quota?</span>
+                        <i class="fa-solid fa-chevron-down text-gray-400"></i>
                     </div>
-                    <h2 class="text-lg font-bold">INVITE YOUR FRIENDS</h2>
-                    <p class="text-[11px] text-orange-100 mt-0.5">Share your unique link & win rewards.</p>
-                </div>
-                <div class="bg-white/10 px-3 py-2 rounded-xl text-center border border-white/20">
-                    <span class="block text-xs font-semibold">START</span>
-                    <i class="fa-solid fa-arrow-right text-sm"></i>
-                </div>
-            </div>
-
-            <!-- Wallet Balance Card -->
-            <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex justify-between items-center">
-                <div>
-                    <p class="text-xs text-gray-400 font-medium uppercase tracking-wider">Wallet Balance</p>
-                    <h3 class="text-3xl font-extrabold text-gray-800 mt-1">₹10<span class="text-gray-400 text-lg">.00</span></h3>
-                </div>
-                <button class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-2.5 rounded-full shadow-md shadow-orange-200 text-sm flex items-center space-x-1">
-                    <i class="fa-solid fa-plus text-xs"></i>
-                    <span>Top Up</span>
-                </button>
-            </div>
-
-            <!-- Ratios Grid -->
-            <div class="grid grid-cols-2 gap-3">
-                <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100">
-                    <span class="text-[11px] text-gray-400 font-medium">USDT RATIO</span>
-                    <h4 class="text-xl font-bold text-gray-800 mt-1">110.00 ₹</h4>
-                    <span class="text-[10px] text-gray-400">per 1 USDT</span>
-                </div>
-                <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100">
-                    <span class="text-[11px] text-gray-400 font-medium">INR RATIO</span>
-                    <h4 class="text-xl font-bold text-orange-500 mt-1">9.00%</h4>
-                    <span class="text-[10px] text-emerald-500 font-medium">bonus active</span>
-                </div>
-            </div>
-
-            <!-- List Items (Referral, Today Receive, Team Commission) -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 divide-y divide-gray-50">
-                <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-9 h-9 rounded-full bg-orange-100 text-orange-500 flex items-center justify-center font-bold">₹</div>
-                        <div>
-                            <p class="text-xs text-gray-400 font-medium">REFERRAL BALANCE</p>
-                            <h5 class="text-base font-bold text-gray-800">₹0.00</h5>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="bg-orange-50 border border-orange-500 text-orange-600 rounded-xl p-2 text-center">
+                            <p class="text-xs font-bold">LOW</p>
+                            <span class="text-[10px]">+5%</span>
+                        </div>
+                        <div class="bg-gray-50 border border-gray-200 text-gray-500 rounded-xl p-2 text-center">
+                            <p class="text-xs font-bold">MIDDLE</p>
+                            <span class="text-[10px]">+7%</span>
+                        </div>
+                        <div class="bg-gray-50 border border-gray-200 text-gray-500 rounded-xl p-2 text-center">
+                            <p class="text-xs font-bold">HIGH</p>
+                            <span class="text-[10px]">+9%</span>
                         </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-xs text-gray-300"></i>
+                    <button class="w-full bg-orange-500 text-white py-2.5 rounded-xl font-semibold text-xs flex items-center justify-center space-x-2 shadow-md shadow-orange-100">
+                        <i class="fa-solid fa-rotate"></i>
+                        <span>Refresh</span>
+                    </button>
                 </div>
 
-                <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-500 flex items-center justify-center font-bold">i</div>
+                <div class="space-y-3">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center">
                         <div>
-                            <p class="text-xs text-gray-400 font-medium">TODAY RECEIVE</p>
-                            <h5 class="text-base font-bold text-gray-800">₹0.00</h5>
+                            <h4 class="text-base font-extrabold text-gray-900">470.00 INR</h4>
+                            <div class="flex space-x-3 text-[11px] text-gray-400 mt-0.5">
+                                <span>Income <strong class="text-gray-700">28.20 (6.00%)</strong></span>
+                                <span>Quota <strong class="text-gray-700">498.20</strong></span>
+                            </div>
                         </div>
+                        <button class="bg-gray-900 text-white px-5 py-2 rounded-xl text-xs font-bold">Buy</button>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-xs text-gray-300"></i>
-                </div>
 
-                <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-500 flex items-center justify-center font-bold">●</div>
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center">
                         <div>
-                            <p class="text-xs text-gray-400 font-medium">TEAM COMMISSION</p>
-                            <h5 class="text-base font-bold text-gray-800">₹0.00</h5>
+                            <h4 class="text-base font-extrabold text-gray-900">650.00 INR</h4>
+                            <div class="flex space-x-3 text-[11px] text-gray-400 mt-0.5">
+                                <span>Income <strong class="text-gray-700">39.00 (6.00%)</strong></span>
+                                <span>Quota <strong class="text-gray-700">689.00</strong></span>
+                            </div>
                         </div>
+                        <button class="bg-gray-900 text-white px-5 py-2 rounded-xl text-xs font-bold">Buy</button>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-xs text-gray-300"></i>
+
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center">
+                        <div>
+                            <h4 class="text-base font-extrabold text-gray-900">800.00 INR</h4>
+                            <div class="flex space-x-3 text-[11px] text-gray-400 mt-0.5">
+                                <span>Income <strong class="text-gray-700">56.00 (7.00%)</strong></span>
+                                <span>Quota <strong class="text-gray-700">856.00</strong></span>
+                            </div>
+                        </div>
+                        <button class="bg-gray-900 text-white px-5 py-2 rounded-xl text-xs font-bold">Buy</button>
+                    </div>
                 </div>
             </div>
-
         </div>
 
-        <!-- Floating Chat Icon -->
         <div class="absolute right-4 bottom-20 bg-orange-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg cursor-pointer">
             <i class="fa-solid fa-headset text-lg"></i>
         </div>
 
-        <!-- Bottom Navigation Bar -->
         <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 py-2 px-6 flex justify-between items-center z-10">
-            <div class="flex flex-col items-center text-orange-500 cursor-pointer">
+            <div id="nav-home" onclick="switchTab('home')" class="nav-item flex flex-col items-center text-orange-500 cursor-pointer">
                 <i class="fa-solid fa-house text-lg"></i>
                 <span class="text-[10px] font-medium mt-1">Home</span>
             </div>
-            <div class="flex flex-col items-center text-gray-400 hover:text-orange-500 cursor-pointer">
+            <div id="nav-deposit" onclick="switchTab('deposit')" class="nav-item flex flex-col items-center text-gray-400 hover:text-orange-500 cursor-pointer">
                 <i class="fa-solid fa-right-left text-lg"></i>
                 <span class="text-[10px] font-medium mt-1">Deposit</span>
             </div>
-            <div class="flex flex-col items-center text-gray-400 hover:text-orange-500 cursor-pointer">
+            <div class="nav-item flex flex-col items-center text-gray-400 cursor-pointer">
                 <i class="fa-solid fa-circle-plus text-lg"></i>
                 <span class="text-[10px] font-medium mt-1">Withdraw</span>
             </div>
-            <div class="flex flex-col items-center text-gray-400 hover:text-orange-500 cursor-pointer">
+            <div class="nav-item flex flex-col items-center text-gray-400 cursor-pointer">
                 <i class="fa-solid fa-users text-lg"></i>
                 <span class="text-[10px] font-medium mt-1">Team</span>
             </div>
-            <div class="flex flex-col items-center text-gray-400 hover:text-orange-500 cursor-pointer">
+            <div class="nav-item flex flex-col items-center text-gray-400 cursor-pointer">
                 <i class="fa-solid fa-user text-lg"></i>
                 <span class="text-[10px] font-medium mt-1">Me</span>
             </div>
